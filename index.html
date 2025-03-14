@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Application</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="card">
+        <div class="Search">
+            <input type="text" placeholder="Enter your city name" spellcheck="false">
+            <button><img src="images/search.png"></button>
+        </div>
+        <div class="error" style="display:none;">
+            <p>Invalid City name</p>
+        </div>
+        <div class="weather" style="display:none;">
+            <img src="images/rain.gif" class="weather-icon">
+            <h1 class="temp">22°C</h1>
+            <h2 class="city">New Delhi</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png" >
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="images/wind.png" >
+                    <div>
+                        <p class="wind">15 km/h</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "1772b198e3de18c6a4ce229ab73ecdec";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        const searchBox = document.querySelector(".Search input");
+        const searchBtn = document.querySelector(".Search button");
+        const weatherIcon = document.querySelector(".weather-icon");
+        const card = document.querySelector(".card"); // Select the card element
+
+        async function checkWeather(city) {
+            const response = await fetch(`${apiUrl}${city}&appid=${apiKey}`);
+
+            if (response.status == 404) {
+                document.querySelector(".error").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+            } else {
+                const data = await response.json();
+
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + " Km/h";
+
+                if (data.weather[0].main == "Clouds") {
+                    weatherIcon.src = "images/clouds.png";
+                    card.style.backgroundColor = "#B0C4DE"; // Change background color for clouds
+                } else if (data.weather[0].main == "Clear") {
+                    weatherIcon.src = "images/clear.png";
+                    card.style.backgroundColor = "#f5ec6d"; // Change background color for clear
+                } else if (data.weather[0].main == "Rain") {
+                    weatherIcon.src = "images/rain.gif";
+                    card.style.backgroundColor = "#4682B4"; // Change background color for rain
+                } else if (data.weather[0].main == "Drizzle") {
+                    weatherIcon.src = "images/drizzle.png";
+                    card.style.backgroundColor = "#AFEEEE"; // Change background color for drizzle
+                } else if (data.weather[0].main == "Snow") {
+                    weatherIcon.src = "images/snow.png";
+                    card.style.backgroundColor = "#c9f4f4"; // Change background color for snow
+                } else if (data.weather[0].main == "Mist") {
+                    weatherIcon.src = "images/mist.png";
+                    card.style.backgroundColor = "#5b5b56"; // Change background color for mist
+                }
+                else if (data.weather[0].main == "Haze") {
+                    weatherIcon.src = "images/haze.png";
+                    card.style.backgroundColor = "#889371"; // Change background color for mist
+                }
+                else {
+                    card.style.backgroundColor = "#ffffff"; // Default background color
+                }
+
+                document.querySelector(".weather").style.display = "block";
+                document.querySelector(".error").style.display = "none";
+            }
+        }
+
+        searchBtn.addEventListener("click", () => {
+            checkWeather(searchBox.value);
+        });
+    </script>
+  </body>
+</html>
