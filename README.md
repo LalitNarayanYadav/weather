@@ -20,4 +20,28 @@ A simple and responsive weather forecasting web application built using **HTML**
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/weather-forecasting.git
+   git clone https://github.com/yourusername/weather-forecasting.git 
+
+2. Navigate to the project directory:
+   ```bash
+    cd weather-forecasting
+
+3. Open `index.html` in your browser.
+
+Alternatively, you can use a local server or any code editor with live server extension to view the app.
+
+## Usage
+- Enter a city name in the search bar.
+- Click the "Get Weather" button or press Enter.
+- The current weather data will be displayed on the screen, including:
+  - Temperature (in Celsius or Fahrenheit)
+  - Humidity
+  - Weather condition (Clear, Cloudy, etc.)
+  - Wind speed
+- The app updates the data in real-time and provides a clean, responsive layout for better accessibility.
+
+## Acknowledgements
+- Weather data provided by [OpenWeatherMap API](https://openweathermap.org/api)
+
+
+
