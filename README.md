@@ -43,5 +43,6 @@ Alternatively, you can use a local server or any code editor with live server ex
 ## Acknowledgements
 - Weather data provided by [OpenWeatherMap API](https://openweathermap.org/api)
 
-
+## Note:
+- This is my learning project.
 
